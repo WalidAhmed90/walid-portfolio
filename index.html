@@ -1,0 +1,1854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Walid Ahmed | Android Developer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #10b981;
+      --secondary: #059669;
+      --background: #0a0a0a;
+      --surface: #111111;
+      --surface-light: #1a1a1a;
+      --text-primary: #ffffff;
+      --text-secondary: #a0a0a0;
+      --text-muted: #666666;
+      --border: #2a2a2a;
+      --success: #10b981;
+      --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--background);
+      color: var(--text-primary);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* Navigation */
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(10, 10, 10, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+      padding: 1rem 0;
+    }
+
+    .nav-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 120px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 20% 80%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 20%, rgba(5, 150, 105, 0.1) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    /* Background Graphics */
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        radial-gradient(circle at 25% 25%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(5, 150, 105, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 50% 10%, rgba(16, 185, 129, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 10% 50%, rgba(5, 150, 105, 0.05) 0%, transparent 50%);
+      pointer-events: none;
+      animation: float 20s ease-in-out infinite;
+    }
+
+    /* Floating Elements */
+    .floating-elements {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .floating-element {
+      position: absolute;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.1));
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .floating-element:nth-child(1) {
+      width: 80px;
+      height: 80px;
+      top: 20%;
+      left: 10%;
+      animation-delay: 0s;
+    }
+
+    .floating-element:nth-child(2) {
+      width: 120px;
+      height: 120px;
+      top: 60%;
+      right: 15%;
+      animation-delay: 2s;
+    }
+
+    .floating-element:nth-child(3) {
+      width: 60px;
+      height: 60px;
+      top: 80%;
+      left: 20%;
+      animation-delay: 4s;
+    }
+
+    .floating-element:nth-child(4) {
+      width: 100px;
+      height: 100px;
+      top: 30%;
+      right: 30%;
+      animation-delay: 1s;
+    }
+
+    .floating-element:nth-child(5) {
+      width: 40px;
+      height: 40px;
+      top: 70%;
+      left: 60%;
+      animation-delay: 3s;
+    }
+
+    /* Grid Pattern */
+    .grid-pattern {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(rgba(16, 185, 129, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(16, 185, 129, 0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      pointer-events: none;
+    }
+
+    /* Animated Background */
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+      }
+      33% {
+        transform: translateY(-20px) rotate(120deg);
+      }
+      66% {
+        transform: translateY(10px) rotate(240deg);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 0.5;
+        transform: scale(1);
+      }
+      50% {
+        opacity: 0.8;
+        transform: scale(1.1);
+      }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+
+    .hero h1 span {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      margin-bottom: 2.5rem;
+      max-width: 600px;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-primary {
+      background: var(--gradient);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text-primary);
+      border: 2px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    /* Sections */
+    section {
+      padding: 6rem 0;
+      position: relative;
+    }
+
+    /* Section Background Graphics */
+    section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        radial-gradient(circle at 20% 20%, rgba(16, 185, 129, 0.02) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(5, 150, 105, 0.02) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .section-header h2 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .section-header p {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* About Section */
+    .about-content {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .about-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .about-text p {
+      color: var(--text-secondary);
+      font-size: 1.2rem;
+      line-height: 1.8;
+      margin: 0;
+      text-align: center;
+    }
+
+    .about-highlights {
+      margin: 3rem 0;
+      padding: 3rem;
+      background: var(--surface);
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-highlights::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--gradient);
+    }
+
+    .about-highlights h3 {
+      color: var(--primary);
+      margin-bottom: 2rem;
+      font-size: 1.5rem;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .highlights-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .highlights-list li {
+      color: var(--text-secondary);
+      padding-left: 2rem;
+      position: relative;
+      line-height: 1.7;
+      font-size: 1rem;
+    }
+
+    .highlights-list li::before {
+      content: '▹';
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    .about-cta {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .about-cta .btn {
+      padding: 1rem 2rem;
+      font-size: 1rem;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .stat {
+      text-align: center;
+      padding: 2.5rem 2rem;
+      background: var(--surface);
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.1), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .stat:hover::before {
+      left: 100%;
+    }
+
+    .stat:hover {
+      transform: translateY(-8px);
+      border-color: var(--primary);
+      box-shadow: 0 20px 40px rgba(16, 185, 129, 0.2);
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.75rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .stat-label {
+      color: var(--text-secondary);
+      font-weight: 500;
+      font-size: 1rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Responsive About Section */
+    @media (max-width: 768px) {
+      .about-text p {
+        font-size: 1.1rem;
+      }
+
+      .about-highlights {
+        padding: 2rem;
+        margin: 2rem 0;
+      }
+
+      .highlights-list {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+      }
+
+      .stat {
+        padding: 2rem 1.5rem;
+      }
+
+      .stat-number {
+        font-size: 2rem;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .about-cta {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .about-cta .btn {
+        width: 100%;
+        max-width: 250px;
+      }
+    }
+
+    /* Skills Section */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .skill-category {
+      background: var(--surface);
+      padding: 2.5rem;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .skill-category::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.1), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .skill-category:hover::before {
+      left: 100%;
+    }
+
+    .skill-category:hover {
+      transform: translateY(-8px) scale(1.02);
+      border-color: var(--primary);
+      box-shadow: 0 20px 40px rgba(16, 185, 129, 0.15);
+    }
+
+    /* Skill Category Background Animation */
+    .skill-category::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, transparent 30%, rgba(16, 185, 129, 0.05) 50%, transparent 70%);
+      transform: translateX(-100%);
+      transition: transform 0.6s ease;
+      pointer-events: none;
+    }
+
+    .skill-category:hover::after {
+      transform: translateX(100%);
+    }
+
+    .skill-category h3 {
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      min-height: 2.5rem;
+      line-height: 1.3;
+    }
+
+    .skill-category h3 i {
+      font-size: 1.5rem;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+
+    .skill-list {
+      list-style: none;
+    }
+
+    .skill-list li {
+      padding: 0.75rem 0;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border);
+      transition: all 0.3s ease;
+      position: relative;
+      padding-left: 1.5rem;
+    }
+
+    .skill-list li::before {
+      content: '▹';
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    .skill-list li:hover {
+      color: var(--text-primary);
+      transform: translateX(5px);
+    }
+
+    .skill-list li:last-child {
+      border-bottom: none;
+    }
+
+    .skill-progress {
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .skill-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .skill-item:last-child {
+      border-bottom: none;
+    }
+
+    .skill-name {
+      color: var(--text-secondary);
+      font-weight: 500;
+      flex: 1;
+    }
+
+
+
+    /* Circular Progress */
+    .circular-progress {
+      position: relative;
+      width: 40px;
+      height: 40px;
+      margin-left: 1rem;
+    }
+
+    .circular-progress svg {
+      width: 100%;
+      height: 100%;
+      transform: rotate(-90deg);
+    }
+
+    .circular-progress circle {
+      fill: none;
+      stroke-width: 3;
+    }
+
+    .circular-progress .bg {
+      stroke: var(--surface-light);
+    }
+
+    .circular-progress .progress {
+      stroke: var(--primary);
+      stroke-linecap: round;
+      stroke-dasharray: 0 100;
+      transition: stroke-dasharray 1.5s ease;
+    }
+
+    .skill-category:hover .circular-progress .progress {
+      stroke-dasharray: var(--skill-percentage) 100;
+    }
+
+    .circular-progress .percentage {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    /* Projects Section */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border-radius: 16px;
+      padding: 1.75rem;
+      border: 1px solid var(--border);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--gradient);
+      transform: scaleX(0);
+      transition: transform 0.4s ease;
+    }
+
+    .project-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .project-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .project-card:hover::after {
+      opacity: 1;
+    }
+
+    .project-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      border-color: var(--primary);
+      box-shadow: 0 25px 50px rgba(16, 185, 129, 0.2);
+    }
+
+    .project-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+
+    .project-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.25rem;
+      line-height: 1.3;
+    }
+
+    .project-type {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: white;
+      padding: 0.15rem 0.5rem;
+      border-radius: 12px;
+      font-size: 0.6rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      display: inline-block;
+      align-self: flex-start;
+      margin-top: 0.25rem;
+    }
+
+    .project-description {
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+      line-height: 1.5;
+      font-size: 0.95rem;
+    }
+
+    .project-stats {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      padding: 0.75rem;
+      background: rgba(16, 185, 129, 0.03);
+      border-radius: 8px;
+      border: 1px solid rgba(16, 185, 129, 0.08);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-stats::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.08), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .project-card:hover .project-stats::before {
+      left: 100%;
+    }
+
+    .project-stat {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex: 1;
+      padding: 0.5rem 0.75rem;
+      background: rgba(16, 185, 129, 0.05);
+      border-radius: 6px;
+      border: 1px solid rgba(16, 185, 129, 0.1);
+      transition: all 0.3s ease;
+      position: relative;
+      z-index: 2;
+    }
+
+    .project-stat:hover {
+      background: rgba(16, 185, 129, 0.1);
+      border-color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    .project-stat-number {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .project-stat-label {
+      font-size: 0.65rem;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      font-weight: 500;
+    }
+
+    .project-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .tech-tag {
+      background: var(--surface-light);
+      color: var(--text-secondary);
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      border: 1px solid var(--border);
+      transition: all 0.3s ease;
+      font-weight: 500;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tech-tag::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.2), transparent);
+      transition: left 0.4s ease;
+    }
+
+    .tech-tag:hover::before {
+      left: 100%;
+    }
+
+    .tech-tag:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+    }
+
+    .project-links {
+      margin-top: 1rem;
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .project-link {
+      padding: 0.6rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      min-width: 100px;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      z-index: 10;
+    }
+
+    .project-link::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.1), transparent);
+      transition: left 0.4s ease;
+      z-index: -1;
+    }
+
+    .project-link:hover::before {
+      left: 100%;
+    }
+
+    .project-link:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(16, 185, 129, 0.25);
+    }
+
+    .store-link {
+      background: var(--surface-light);
+      border-color: var(--border);
+    }
+
+    .store-link:hover {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .store-link.app-store {
+      border-color: #007AFF;
+    }
+
+    .store-link.app-store:hover {
+      background: #007AFF;
+      border-color: #007AFF;
+    }
+
+    .store-link.play-store {
+      border-color: #01875F;
+    }
+
+    .store-link.play-store:hover {
+      background: #01875F;
+      border-color: #01875F;
+    }
+
+    /* Achievements Section */
+    .achievements-list {
+      list-style: none;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .achievements-list li {
+      background: var(--surface);
+      padding: 2rem;
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+      border: 1px solid var(--border);
+      transition: transform 0.3s ease;
+    }
+
+    .achievements-list li:hover {
+      transform: translateX(10px);
+    }
+
+    .achievement-title {
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .achievement-description {
+      color: var(--text-secondary);
+    }
+
+    .medium-links {
+      margin-top: 1rem;
+    }
+
+    .medium-links a {
+      color: var(--primary);
+      text-decoration: none;
+      display: block;
+      padding: 0.5rem 0;
+      transition: color 0.3s ease;
+    }
+
+    .medium-links a:hover {
+      color: var(--secondary);
+    }
+
+    /* Contact Section */
+    .contact-content {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .contact-info {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .contact-item {
+      background: var(--surface);
+      padding: 2.5rem;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.1), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .contact-item:hover::before {
+      left: 100%;
+    }
+
+    .contact-item:hover {
+      transform: translateY(-8px) scale(1.02);
+      border-color: var(--primary);
+      box-shadow: 0 20px 40px rgba(16, 185, 129, 0.15);
+    }
+
+    .contact-icon {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+      transition: transform 0.3s ease;
+    }
+
+    .contact-item:hover .contact-icon {
+      transform: scale(1.1);
+    }
+
+    .contact-item h3 {
+      margin-bottom: 0.75rem;
+      color: var(--text-primary);
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    .contact-item p {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    .contact-item a {
+      color: var(--primary);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .contact-item a:hover {
+      color: var(--secondary);
+    }
+
+    /* Responsive Contact Cards */
+    @media (max-width: 768px) {
+      .contact-info {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .contact-item {
+        padding: 2rem;
+      }
+
+      .contact-icon {
+        font-size: 2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .contact-item {
+        padding: 1.5rem;
+      }
+
+      .contact-icon {
+        font-size: 1.75rem;
+        margin-bottom: 1rem;
+      }
+
+      .contact-item h3 {
+        font-size: 1.1rem;
+      }
+    }
+
+    /* Footer */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 3rem 0;
+      text-align: center;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .social-links a {
+      color: var(--text-secondary);
+      font-size: 1.5rem;
+      transition: color 0.3s ease;
+    }
+
+    .social-links a:hover {
+      color: var(--primary);
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-in-up {
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .about-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .btn-group {
+        flex-direction: column;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-content {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    /* Scroll animations */
+    .scroll-reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease;
+    }
+
+    .scroll-reveal.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-content">
+      <div class="logo">Walid Ahmed</div>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#achievements">Achievements</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <!-- Background Graphics -->
+    <div class="grid-pattern"></div>
+    <div class="floating-elements">
+      <div class="floating-element"></div>
+      <div class="floating-element"></div>
+      <div class="floating-element"></div>
+      <div class="floating-element"></div>
+      <div class="floating-element"></div>
+    </div>
+    
+    <div class="container">
+      <div class="hero-content fade-in-up">
+        <h1>Hi, I'm <span>Walid</span> — Android Developer Building Smart, Scalable Mobile Apps</h1>
+        <p>I specialize in developing robust Android and Flutter applications tailored to business needs. With 4+ years of hands-on experience, I've built real-world solutions from eCommerce to healthcare and nonprofit domains.</p>
+        <div class="btn-group">
+          <a href="#projects" class="btn btn-primary">
+            <i class="fas fa-code"></i>
+            View Projects
+          </a>
+          <a href="Walid Ahmed Resume 2025.pdf" class="btn btn-secondary" target="_blank">
+            <i class="fas fa-download"></i>
+            Download Resume
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about">
+    <div class="container">
+      <div class="section-header scroll-reveal">
+        <h2>About Me</h2>
+      </div>
+      <div class="about-content">
+        <div class="about-text scroll-reveal">
+          <p>I'm Walid Ahmed, a passionate mobile application developer with over 4 years of hands-on experience in Android development and 1+ year in Flutter. Based in Karachi, Pakistan, I specialize in building robust, scalable mobile applications that deliver exceptional user experiences.</p>
+          
+          <p>My expertise spans across diverse domains including eCommerce, healthcare, hospitality, and nonprofit sectors. I've successfully delivered 15+ production-ready applications, each demonstrating clean architecture, intuitive UI/UX, and efficient business logic implementation.</p>
+        </div>
+        
+        <div class="about-cta scroll-reveal">
+            <a href="#projects" class="btn btn-primary">
+              <i class="fas fa-code"></i>
+              View My Work
+            </a>
+            <a href="#contact" class="btn btn-secondary">
+              <i class="fas fa-paper-plane"></i>
+              Let's Connect
+            </a>
+          </div>
+
+        <div class="about-highlights scroll-reveal">
+          <h3>What I Bring to Your Project</h3>
+          <ul class="highlights-list">
+            <li>Expert-level proficiency in Kotlin, Java, and Dart programming languages</li>
+            <li>Strong foundation in MVVM, MVP, and Clean Architecture patterns</li>
+            <li>Proven experience with modern Android development tools and libraries</li>
+            <li>Cross-platform development expertise with Flutter framework</li>
+            <li>Active open-source contributor and technical writer</li>
+            <li>Commitment to writing clean, maintainable, and well-documented code</li>
+          </ul>
+        </div>
+        
+
+        
+        <div class="stats scroll-reveal">
+          <div class="stat">
+            <div class="stat-number">4+</div>
+            <div class="stat-label">Years Experience</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">10+</div>
+            <div class="stat-label">Projects Completed</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">5</div>
+            <div class="stat-label">Published Articles</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">100%</div>
+            <div class="stat-label">Client Satisfaction</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">24/7</div>
+            <div class="stat-label">Support Available</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">5+</div>
+            <div class="stat-label">Technologies</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills">
+    <div class="container">
+      <div class="section-header scroll-reveal">
+        <h2>Skills & Technologies</h2>
+        <p>Comprehensive toolkit for building modern mobile applications</p>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-category scroll-reveal">
+          <h3><i class="fas fa-code"></i> Programming Languages</h3>
+          <div class="skill-progress">
+            <div class="skill-item">
+              <span class="skill-name">Kotlin</span>
+              <div class="circular-progress">
+                <svg>
+                  <circle class="bg" cx="20" cy="20" r="17"></circle>
+                  <circle class="progress" cx="20" cy="20" r="17" style="--skill-percentage: 95"></circle>
+                </svg>
+                <span class="percentage">95%</span>
+              </div>
+            </div>
+            <div class="skill-item">
+              <span class="skill-name">Java</span>
+              <div class="circular-progress">
+                <svg>
+                  <circle class="bg" cx="20" cy="20" r="17"></circle>
+                  <circle class="progress" cx="20" cy="20" r="17" style="--skill-percentage: 90"></circle>
+                </svg>
+                <span class="percentage">90%</span>
+              </div>
+            </div>
+            <div class="skill-item">
+              <span class="skill-name">Dart</span>
+              <div class="circular-progress">
+                <svg>
+                  <circle class="bg" cx="20" cy="20" r="17"></circle>
+                  <circle class="progress" cx="20" cy="20" r="17" style="--skill-percentage: 85"></circle>
+                </svg>
+                <span class="percentage">85%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="skill-category scroll-reveal">
+          <h3><i class="fas fa-mobile-alt"></i> Frameworks</h3>
+          <div class="skill-progress">
+            <div class="skill-item">
+              <span class="skill-name">Flutter</span>
+              <div class="circular-progress">
+                <svg>
+                  <circle class="bg" cx="20" cy="20" r="17"></circle>
+                  <circle class="progress" cx="20" cy="20" r="17" style="--skill-percentage: 92"></circle>
+                </svg>
+                <span class="percentage">92%</span>
+              </div>
+            </div>
+            <div class="skill-item">
+              <span class="skill-name">Jetpack Compose</span>
+              <div class="circular-progress">
+                <svg>
+                  <circle class="bg" cx="20" cy="20" r="17"></circle>
+                  <circle class="progress" cx="20" cy="20" r="17" style="--skill-percentage: 88"></circle>
+                </svg>
+                <span class="percentage">88%</span>
+              </div>
+            </div>
+            <div class="skill-item">
+              <span class="skill-name">Android SDK</span>
+              <div class="circular-progress">
+                <svg>
+                  <circle class="bg" cx="20" cy="20" r="17"></circle>
+                  <circle class="progress" cx="20" cy="20" r="17" style="--skill-percentage: 95"></circle>
+                </svg>
+                <span class="percentage">95%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="skill-category scroll-reveal">
+          <h3><i class="fas fa-layer-group"></i> Architecture</h3>
+          <div class="skill-progress">
+            <div class="skill-item">
+              <span class="skill-name">MVVM</span>
+              <div class="circular-progress">
+                <svg>
+                  <circle class="bg" cx="20" cy="20" r="17"></circle>
+                  <circle class="progress" cx="20" cy="20" r="17" style="--skill-percentage: 90"></circle>
+                </svg>
+                <span class="percentage">90%</span>
+              </div>
+            </div>
+            <div class="skill-item">
+              <span class="skill-name">MVP</span>
+              <div class="circular-progress">
+                <svg>
+                  <circle class="bg" cx="20" cy="20" r="17"></circle>
+                  <circle class="progress" cx="20" cy="20" r="17" style="--skill-percentage: 85"></circle>
+                </svg>
+                <span class="percentage">85%</span>
+              </div>
+            </div>
+            <div class="skill-item">
+              <span class="skill-name">Clean Architecture</span>
+              <div class="circular-progress">
+                <svg>
+                  <circle class="bg" cx="20" cy="20" r="17"></circle>
+                  <circle class="progress" cx="20" cy="20" r="17" style="--skill-percentage: 88"></circle>
+                </svg>
+                <span class="percentage">88%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="skill-category scroll-reveal">
+          <h3><i class="fas fa-tools"></i> Libraries & Tools</h3>
+          <div class="skill-progress">
+            <div class="skill-item">
+              <span class="skill-name">Retrofit</span>
+              <div class="circular-progress">
+                <svg>
+                  <circle class="bg" cx="20" cy="20" r="17"></circle>
+                  <circle class="progress" cx="20" cy="20" r="17" style="--skill-percentage: 92"></circle>
+                </svg>
+                <span class="percentage">92%</span>
+              </div>
+            </div>
+            <div class="skill-item">
+              <span class="skill-name">Room DB</span>
+              <div class="circular-progress">
+                <svg>
+                  <circle class="bg" cx="20" cy="20" r="17"></circle>
+                  <circle class="progress" cx="20" cy="20" r="17" style="--skill-percentage: 90"></circle>
+                </svg>
+                <span class="percentage">90%</span>
+              </div>
+            </div>
+            <div class="skill-item">
+              <span class="skill-name">Firebase</span>
+              <div class="circular-progress">
+                <svg>
+                  <circle class="bg" cx="20" cy="20" r="17"></circle>
+                  <circle class="progress" cx="20" cy="20" r="17" style="--skill-percentage: 88"></circle>
+                </svg>
+                <span class="percentage">88%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="skill-category scroll-reveal">
+          <h3><i class="fas fa-palette"></i> UI/UX</h3>
+          <div class="skill-progress">
+            <div class="skill-item">
+              <span class="skill-name">Material Design</span>
+              <div class="circular-progress">
+                <svg>
+                  <circle class="bg" cx="20" cy="20" r="17"></circle>
+                  <circle class="progress" cx="20" cy="20" r="17" style="--skill-percentage: 95"></circle>
+                </svg>
+                <span class="percentage">95%</span>
+              </div>
+            </div>
+            <div class="skill-item">
+              <span class="skill-name">Jetpack Navigation</span>
+              <div class="circular-progress">
+                <svg>
+                  <circle class="bg" cx="20" cy="20" r="17"></circle>
+                  <circle class="progress" cx="20" cy="20" r="17" style="--skill-percentage: 90"></circle>
+                </svg>
+                <span class="percentage">90%</span>
+              </div>
+            </div>
+            <div class="skill-item">
+              <span class="skill-name">Custom Animations</span>
+              <div class="circular-progress">
+                <svg>
+                  <circle class="bg" cx="20" cy="20" r="17"></circle>
+                  <circle class="progress" cx="20" cy="20" r="17" style="--skill-percentage: 85"></circle>
+                </svg>
+                <span class="percentage">85%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="skill-category scroll-reveal">
+          <h3><i class="fas fa-cogs"></i> Development Tools</h3>
+          <div class="skill-progress">
+            <div class="skill-item">
+              <span class="skill-name">Android Studio</span>
+              <div class="circular-progress">
+                <svg>
+                  <circle class="bg" cx="20" cy="20" r="17"></circle>
+                  <circle class="progress" cx="20" cy="20" r="17" style="--skill-percentage: 95"></circle>
+                </svg>
+                <span class="percentage">95%</span>
+              </div>
+            </div>
+            <div class="skill-item">
+              <span class="skill-name">Git</span>
+              <div class="circular-progress">
+                <svg>
+                  <circle class="bg" cx="20" cy="20" r="17"></circle>
+                  <circle class="progress" cx="20" cy="20" r="17" style="--skill-percentage: 90"></circle>
+                </svg>
+                <span class="percentage">90%</span>
+              </div>
+            </div>
+            <div class="skill-item">
+              <span class="skill-name">REST APIs</span>
+              <div class="circular-progress">
+                <svg>
+                  <circle class="bg" cx="20" cy="20" r="17"></circle>
+                  <circle class="progress" cx="20" cy="20" r="17" style="--skill-percentage: 88"></circle>
+                </svg>
+                <span class="percentage">88%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects">
+    <div class="container">
+      <div class="section-header scroll-reveal">
+        <h2>Featured Projects</h2>
+        <p>Real-world applications that demonstrate my expertise and problem-solving skills</p>
+      </div>
+      <div class="projects-grid">
+        <div class="project-card scroll-reveal">
+            <div class="project-header">
+              <div>
+                <div class="project-title">Feeling Blessed – Donation App</div>
+                <div class="project-type">Android</div>
+              </div>
+            </div>
+            <div class="project-description">Built features like Blessed 10, Referral, and Qurbani modules. Increased user engagement by 25%.</div>
+            <div class="project-stats">
+              <div class="project-stat">
+                <span class="project-stat-number">25%</span>
+                <span class="project-stat-label">Engagement</span>
+              </div>
+              <div class="project-stat">
+                <span class="project-stat-number">3</span>
+                <span class="project-stat-label">Features</span>
+              </div>
+            </div>
+            <div class="project-tech">
+              <span class="tech-tag">Android</span>
+              <span class="tech-tag">Firebase</span>
+              <span class="tech-tag">Room DB</span>
+              <span class="tech-tag">Material Design</span>
+            </div>
+            <div class="project-links">
+                          <a href="https://play.google.com/store/apps/details?id=com.nextgeni.feelingblessed&hl=en" class="project-link store-link play-store" target="_blank">
+              <i class="fab fa-google-play"></i>
+              Play Store
+            </a>
+            </div>
+          </div>
+        <div class="project-card scroll-reveal">
+          <div class="project-header">
+            <div>
+              <div class="project-title">Siro Hotel – Hotel Management App</div>
+              <div class="project-type">Android</div>
+            </div>
+          </div>
+          <div class="project-description">Developed core modules like Auth, Profile, Membership, and Booking with 40% project contribution.</div>
+                      <div class="project-stats">
+              <div class="project-stat">
+                <span class="project-stat-number">40%</span>
+                <span class="project-stat-label">Contribution</span>
+              </div>
+              <div class="project-stat">
+                <span class="project-stat-number">4</span>
+                <span class="project-stat-label">Modules</span>
+              </div>
+            </div>
+          <div class="project-tech">
+            <span class="tech-tag">Android</span>
+            <span class="tech-tag">Kotlin</span>
+            <span class="tech-tag">MVVM</span>
+            <span class="tech-tag">Room DB</span>
+          </div>
+          <div class="project-links">
+            <a href="https://play.google.com/store/apps/details?id=com.siro.android&hl=en" class="project-link store-link play-store" target="_blank">
+              <i class="fab fa-google-play"></i>
+              Play Store
+            </a>
+          </div>
+        </div>
+       
+        <div class="project-card scroll-reveal">
+          <div class="project-header">
+            <div>
+              <div class="project-title">Vital Tea – eCommerce + POS</div>
+              <div class="project-type">Cross-Platform</div>
+            </div>
+          </div>
+          <div class="project-description">Built full Android app and Flutter version for iOS. Used Room DB, Maps, REST API, GetX.</div>
+                      <div class="project-stats">
+              <div class="project-stat">
+                <span class="project-stat-number">2</span>
+                <span class="project-stat-label">Platforms</span>
+              </div>
+              <div class="project-stat">
+                <span class="project-stat-number">8</span>
+                <span class="project-stat-label">Features</span>
+              </div>
+            </div>
+          <div class="project-tech">
+            <span class="tech-tag">Flutter</span>
+            <span class="tech-tag">Dart</span>
+            <span class="tech-tag">GetX</span>
+            <span class="tech-tag">Google Maps</span>
+          </div>
+                      <div class="project-links">
+                          <a href="https://apps.apple.com/us/app/vital-cafe-app/id6473115381" class="project-link store-link app-store" target="_blank">
+              <i class="fab fa-apple"></i>
+              App Store
+            </a>
+                          <a href="https://play.google.com/store/apps/details?id=com.group.cafe&hl=en" class="project-link store-link play-store" target="_blank">
+              <i class="fab fa-google-play"></i>
+              Play Store
+            </a>
+            </div>
+        </div>
+    
+    
+        <div class="project-card scroll-reveal">
+          <div class="project-header">
+            <div>
+              <div class="project-title">Flutter Power Switch Button</div>
+              <div class="project-type">Package</div>
+            </div>
+          </div>
+          <div class="project-description">Published a customizable Flutter widget for a sleek, animated power switch UI component library.</div>
+          <div class="project-stats">
+            <div class="project-stat">
+              <span class="project-stat-number">60</span>
+              <span class="project-stat-label">Downloads</span>
+            </div>
+            <div class="project-stat">
+              <span class="project-stat-number">150</span>
+              <span class="project-stat-label">Points</span>
+            </div>
+          </div>
+          <div class="project-tech">
+            <span class="tech-tag">Flutter Package</span>
+            <span class="tech-tag">UI Component</span>
+            <span class="tech-tag">Animation</span>
+            <span class="tech-tag">Customizable</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/WalidAhmed90" class="project-link store-link" target="_blank">
+              <i class="fab fa-github"></i>
+              GitHub
+            </a>
+            <a href="https://pub.dev/packages/power_switch_button" class="project-link store-link" target="_blank">
+              <i class="fas fa-external-link-alt"></i>
+              Pub.dev
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Achievements Section -->
+  <section id="achievements">
+    <div class="container">
+      <div class="section-header scroll-reveal">
+        <h2>Achievements & Publications</h2>
+        <p>Recognition for contributions to the developer community</p>
+      </div>
+      <ul class="achievements-list">
+        <li class="scroll-reveal">
+          <div class="achievement-title">Published Flutter Package</div>
+          <div class="achievement-description">Successfully published "Power Switch Button" - a customizable Flutter widget for animated power switch UI components.</div>
+        </li>
+        <li class="scroll-reveal">
+          <div class="achievement-title">Open Source Contributor</div>
+          <div class="achievement-description">Active contributor to Shopify's checkout-sheet-kit-android, helping improve the e-commerce development experience.</div>
+        </li>
+        <li class="scroll-reveal">
+          <div class="achievement-title">GitHub Recognition</div>
+          <div class="achievement-description">Earned the prestigious GitHub Pull Shark Badge in October 2024 for exceptional contributions to open source projects.</div>
+        </li>
+        <li class="scroll-reveal">
+          <div class="achievement-title">Technical Writing</div>
+          <div class="achievement-description">Published comprehensive articles on Medium covering Android development best practices:</div>
+          <div class="medium-links">
+            <a href="https://medium.com/@walidkhan345/auto-migration-in-room-database-android-2599097c2322" target="_blank">• Auto-Migration in Room DB</a>
+            <a href="https://medium.com/@walidkhan345/fetch-thumbnail-or-logo-from-any-url-in-your-android-app-b91d5e4ad604" target="_blank">• Fetch Logo from URL</a>
+            <a href="https://medium.com/@walidkhan345/creating-a-multilingual-android-application-f286a5bf3096" target="_blank">• Multilingual App Development</a>
+            <a href="https://medium.com/@walidkhan345/kotlin-essentials-questions-answers-and-examples-b23b2c47f489" target="_blank">• Kotlin Essentials Guide</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-header scroll-reveal">
+        <h2>Get In Touch</h2>
+        <p>Ready to collaborate on your next mobile app project? Let's connect!</p>
+      </div>
+      <div class="contact-content">
+        <div class="contact-info">
+          <div class="contact-item scroll-reveal">
+            <div class="contact-icon">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <h3>Email</h3>
+            <p><a href="mailto:walidkhan345@gmail.com">walidkhan345@gmail.com</a></p>
+          </div>
+          <div class="contact-item scroll-reveal">
+            <div class="contact-icon">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <h3>Location</h3>
+            <p>Karachi, Pakistan</p>
+          </div>
+          <div class="contact-item scroll-reveal">
+            <div class="contact-icon">
+              <i class="fab fa-github"></i>
+            </div>
+            <h3>GitHub</h3>
+            <p><a href="https://github.com/WalidAhmed90" target="_blank">@WalidAhmed90</a></p>
+          </div>
+          <div class="contact-item scroll-reveal">
+            <div class="contact-icon">
+              <i class="fab fa-linkedin"></i>
+            </div>
+            <h3>LinkedIn</h3>
+            <p><a href="https://www.linkedin.com/in/walid-ahmed-470b24199/" target="_blank">@walid-ahmed-470b24199</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div>
+          <p>© 2025 Walid Ahmed. Built with <span style="color: var(--primary);">💻</span> and <span style="color: var(--primary);">☕</span> in Pakistan.</p>
+        </div>
+        <div class="social-links">
+          <a href="https://github.com/WalidAhmed90" target="_blank"><i class="fab fa-github"></i></a>
+          <a href="https://medium.com/@walidkhan345" target="_blank"><i class="fab fa-medium"></i></a>
+          <a href="https://www.linkedin.com/in/walid-ahmed-470b24199/" target="_blank"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Scroll reveal animation
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.scroll-reveal').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Navbar background on scroll
+    window.addEventListener('scroll', () => {
+      const navbar = document.querySelector('.navbar');
+      if (window.scrollY > 50) {
+        navbar.style.background = 'rgba(10, 10, 10, 0.98)';
+      } else {
+        navbar.style.background = 'rgba(10, 10, 10, 0.95)';
+      }
+    });
+  </script>
+
+</body>
+</html>
